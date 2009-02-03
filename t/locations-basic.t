@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 4;
+use Test::More tests => 6;
 
 use Angerwhale::Location;
 use Angerwhale::Location::Host;
@@ -17,3 +17,8 @@ ok $prefix->match($matching_uri);
 
 is $host->match($matching_uri)->to_string, 'blag/articles/It+Works!';
 is $prefix->match($matching_uri)->to_string, 'articles/It+Works!';
+
+my $non_matching_uri = URI->new('http://blog.jrock.us/foo/bar/baz');
+
+ok !$host->match($non_matching_uri);
+ok !$prefix->match($non_matching_uri);
